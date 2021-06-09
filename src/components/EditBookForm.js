@@ -37,8 +37,8 @@ function EditBookForm(props) {
                 <input value={props.currentSelected.releaseYear} onChange={(e) => props.setCurrentSelected({...props.currentSelected, releaseYear: e.target.value})}/>
             </div>
             <div style={{paddingTop: "10px"}}>
-                <button onClick={() => editBook(props.currentSelected)}>Save changes</button>
-                <button onClick={() => {props.setCurrentSelected();props.setIsEdit(!props.isEdit)}}>Cancel edit</button>
+                <button onClick={() => {editBook(props.currentSelected) ; props.setIsEdit(!props.isEdit)}}>Save changes</button>
+                <button onClick={() => {props.setCurrentSelected() ; props.setIsEdit(!props.isEdit)}}>Cancel edit</button>
             </div>
         </div>
     );
