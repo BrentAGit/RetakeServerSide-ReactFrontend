@@ -13,12 +13,12 @@ function DeleteBookButton(props) {
             body: JSON.stringify(book)
         };
         await fetch (`http://localhost:8080/books/${book.id}`, fetchOptions);
-        window.location.reload(false);
+        window.location.reload();
     }
 
     return (
         <div>
-            <button onClick={deleteBook(props.thisBook)}>Remove book</button>
+            <button onClick={() => deleteBook(props.selectedBook)}>Remove book</button>
         </div>
     );
 }

@@ -19,10 +19,8 @@ function CreateBookForm(props) {
         };
         const response = await fetch ("http://localhost:8080/books", fetchOptions);
         const body = await response.json();
-        console.log(`async createBook: received response ${JSON.stringify(body)}`);
         props.addBook(body);
         props.setIsLoading(false);
-        console.log("async createBook: done");
     }
 
     return (

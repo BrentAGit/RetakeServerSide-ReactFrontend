@@ -2,13 +2,21 @@ import {useState, useEffect} from "react"
 
 import './App.css';
 import CreateBookForm from "./components/CreateBookForm";
+import EditBookForm from "./components/EditBookForm";
+import DeleteBookButton from "./components/DeleteBookButton";
 
 function App() {
     const [books, setBooks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [currentSelected, setCurrentSelected] = useState(null);
+    const [isEdit, setIsEdit] = useState(false);
 
     function addBook(book) {
         setBooks([...books, book]);
+    }
+
+    function updateBook(book) {
+        setBooks(books.map((b) => b.id === book.id ? book : b));
     }
 
     console.log("rendering App()...");
@@ -35,11 +43,12 @@ function App() {
 
   return (
     <div className="App">
-        {books.map((b) => <div>
-            <p key={b.id}>{b.id}. {b.title} - {b.author} [{b.releaseYear}]</p>
+        {books.map((b) => <div key={b.id}>
+            <p onClick={() => {setCurrentSelected({...b}) ; setIsEdit(!isEdit)}}>{b.id}. {b.title} - {b.author} [{b.releaseYear}]</p>
+            <DeleteBookButton selectedBook={b}/>
         </div>)}
         {isLoading ? <p>Loading data...</p> : false}
-        <CreateBookForm setIsLoading={setIsLoading} addBook={addBook}/>
+        {isEdit ? <EditBookForm setIsLoading={setIsLoading} setIsEdit={setIsEdit} isEdit={isEdit} updateBook={updateBook} currentSelected={currentSelected} setCurrentSelected={setCurrentSelected}/> : <CreateBookForm setIsLoading={setIsLoading} addBook={addBook}/>}
     </div>
   );
 }
