@@ -1,10 +1,15 @@
 import {useState, useEffect} from "react"
 
 import './App.css';
+import CreateBookForm from "./components/CreateBookForm";
 
 function App() {
     const [books, setBooks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+
+    function addBook(book) {
+        setBooks([...books, book]);
+    }
 
     console.log("rendering App()...");
 
@@ -32,6 +37,7 @@ function App() {
     <div className="App">
         {books.map((b) => <p key={b.id}>{b.id}. {b.title} - {b.author} [{b.releaseYear}]</p>)}
         {isLoading ? <p>Loading data...</p> : false}
+        <CreateBookForm setIsLoading={setIsLoading} addBook={addBook}/>
     </div>
   );
 }
