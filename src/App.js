@@ -10,6 +10,7 @@ function App() {
     const [isLoading, setIsLoading] = useState(false);
     const [currentSelected, setCurrentSelected] = useState(null);
     const [isEdit, setIsEdit] = useState(false);
+    const [errorMessage, setErrorMessage] = useState();
 
     function addBook(book) {
         setBooks([...books, book]);
@@ -45,10 +46,24 @@ function App() {
     <div className="App">
         {books.map((b) => <div key={b.id}>
             <p onClick={() => {setCurrentSelected({...b}) ; setIsEdit(!isEdit)}}>{b.id}. {b.title} - {b.author} [{b.releaseYear}]</p>
-            <DeleteBookButton selectedBook={b}/>
+            <DeleteBookButton selectedBook={b} errorMessage={errorMessage}
+                              setErrorMessage={setErrorMessage}/>
         </div>)}
         {isLoading ? <p>Loading data...</p> : false}
-        {isEdit ? <EditBookForm setIsLoading={setIsLoading} setIsEdit={setIsEdit} isEdit={isEdit} updateBook={updateBook} currentSelected={currentSelected} setCurrentSelected={setCurrentSelected}/> : <CreateBookForm setIsLoading={setIsLoading} addBook={addBook}/>}
+        {isEdit ?
+            <EditBookForm setIsLoading={setIsLoading}
+                          setIsEdit={setIsEdit}
+                          isEdit={isEdit}
+                          updateBook={updateBook}
+                          currentSelected={currentSelected}
+                          setCurrentSelected={setCurrentSelected}
+                          errorMessage={errorMessage}
+                          setErrorMessage={setErrorMessage}/>
+                          :
+            <CreateBookForm setIsLoading={setIsLoading}
+                            errorMessage={errorMessage}
+                            setErrorMessage={setErrorMessage}
+                            addBook={addBook}/>}
     </div>
   );
 }

@@ -5,7 +5,6 @@ function CreateBookForm(props) {
     const [title, setTitle] = useState();
     const [author, setAuthor] = useState();
     const [releaseYear, setReleaseYear] = useState();
-    const [errorMessage, setErrorMessage] = useState();
 
     async function createBook(book){
         console.log("createBook");
@@ -27,7 +26,7 @@ function CreateBookForm(props) {
         }
         else{
             console.log(`createBook: ERROR: ${response.status} - ${body.error} - ${body.message}`);
-            setErrorMessage(body.message)
+            props.setErrorMessage(body.message)
         }
         props.setIsLoading(false);
     }
@@ -35,7 +34,7 @@ function CreateBookForm(props) {
     return (
         <div style={{paddingTop: "50px"}}>
             <b>Add a new book to the list</b>
-            <p>{errorMessage}</p>
+            <p>{props.errorMessage}</p>
             <div style={{paddingTop: "10px"}}>
                 Title of the book: <br/>
                 <input value={title} onChange={(e) => setTitle(e.target.value)}/>
