@@ -26,14 +26,20 @@ function App() {
         console.log("Start of useEffect...");
 
         async function getBooks() {
-            console.log("Start of async getBooks...");
-            setIsLoading(true);
-            const response = await fetch("http://localhost:8080/books");
-            const body = await response.json();
-            console.log("Received response in getBooks...");
-            setBooks(body);
+            try{
+                console.log("Start of async getBooks...");
+                setIsLoading(true);
+                const response = await fetch("http://localhost:8080/books");
+                const body = await response.json();
+                console.log("Received response in getBooks...");
+                setBooks(body);
+                console.log("getBooks Done!");
+            }
+            catch(e){
+                console.log(`getBooks: ERROR: ${e}`)
+                setErrorMessage("Connection Error")
+            }
             setIsLoading(false);
-            console.log("getBooks Done!");
         }
 
         getBooks();
@@ -47,8 +53,11 @@ function App() {
         {books.map((b) => <div key={b.id}>
             <p onClick={() => {setCurrentSelected({...b}) ; setIsEdit(!isEdit)}}>{b.id}. {b.title} - {b.author} [{b.releaseYear}]</p>
             <DeleteBookButton selectedBook={b} errorMessage={errorMessage}
-                              setErrorMessage={setErrorMessage}/>
+                              setErrorMessage={setErrorMessage}
+                              setBooks={setBooks}
+                              books={books}/>
         </div>)}
+        <div style={{paddingTop: "50px"}}>{errorMessage}</div>
         {isLoading ? <p>Loading data...</p> : false}
         {isEdit ?
             <EditBookForm setIsLoading={setIsLoading}

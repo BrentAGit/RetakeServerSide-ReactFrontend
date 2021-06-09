@@ -17,16 +17,22 @@ function CreateBookForm(props) {
             },
             body: JSON.stringify(book)
         };
-        const response = await fetch ("http://localhost:8080/books", fetchOptions);
-        const body = await response.json();
-        if(response.ok){
-            console.log(`createBook: received response ${JSON.stringify(body)}`);
-            props.addBook(body);
-            console.log(`createBook: done!`);
+        try{
+            const response = await fetch ("http://localhost:8080/books", fetchOptions);
+            const body = await response.json();
+            if(response.ok){
+                console.log(`createBook: received response ${JSON.stringify(body)}`);
+                props.addBook(body);
+                console.log(`createBook: done!`);
+            }
+            else{
+                console.log(`createBook: ERROR: ${response.status} - ${body.error} - ${body.message}`);
+                props.setErrorMessage(body.message);
+            }
         }
-        else{
-            console.log(`createBook: ERROR: ${response.status} - ${body.error} - ${body.message}`);
-            props.setErrorMessage(body.message)
+        catch(e){
+            console.log(`getBooks: ERROR: ${e}`);
+            props.setErrorMessage("Connection Error");
         }
         props.setIsLoading(false);
     }
@@ -34,7 +40,6 @@ function CreateBookForm(props) {
     return (
         <div style={{paddingTop: "50px"}}>
             <b>Add a new book to the list</b>
-            <p>{props.errorMessage}</p>
             <div style={{paddingTop: "10px"}}>
                 Title of the book: <br/>
                 <input value={title} onChange={(e) => setTitle(e.target.value)}/>

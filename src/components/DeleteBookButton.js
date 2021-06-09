@@ -12,7 +12,21 @@ function DeleteBookButton(props) {
             },
             body: JSON.stringify(book)
         };
-        await fetch (`http://localhost:8080/books/${book.id}`, fetchOptions);
+        try {
+            const response = await fetch(`localhost:8080/books/${book.id}`, fetchOptions);
+            if (response.ok) {
+                console.log(`deleteBook: deleting book...`);
+                props.setBooks(props.books.filter((b) => b.id !== book.id));
+                console.log("deleteBook: deleted book");
+            } else {
+                const body = await response.json();
+                console.log(`   async deleteBook: ERROR: ${response.status} - ${body.error} - ${body.message} `);
+                props.setErrorMessage(body.message);
+            }
+        } catch (e) {
+            console.log(`deleteBook: ERROR: ${e}`);
+            props.setErrorMessage("Connection Error")
+        }
         window.location.reload();
     }
 
