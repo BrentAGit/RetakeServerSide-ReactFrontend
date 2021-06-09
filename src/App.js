@@ -35,7 +35,9 @@ function App() {
 
   return (
     <div className="App">
-        {books.map((b) => <p key={b.id}>{b.id}. {b.title} - {b.author} [{b.releaseYear}]</p>)}
+        {books.map((b) => <div>
+            <p key={b.id}>{b.id}. {b.title} - {b.author} [{b.releaseYear}]</p>
+        </div>)}
         {isLoading ? <p>Loading data...</p> : false}
         <CreateBookForm setIsLoading={setIsLoading} addBook={addBook}/>
     </div>
