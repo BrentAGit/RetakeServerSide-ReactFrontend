@@ -1,7 +1,6 @@
 import {useState} from "react"
 
 function CreateBookForm(props) {
-
     const [title, setTitle] = useState();
     const [author, setAuthor] = useState();
     const [releaseYear, setReleaseYear] = useState();
