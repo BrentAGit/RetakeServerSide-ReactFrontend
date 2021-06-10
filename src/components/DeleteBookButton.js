@@ -13,7 +13,7 @@ function DeleteBookButton(props) {
             body: JSON.stringify(book)
         };
         try {
-            const response = await fetch(`localhost:8080/books/${book.id}`, fetchOptions);
+            const response = await fetch(`/books/${book.id}`, fetchOptions);
             if (response.ok) {
                 console.log(`deleteBook: deleting book...`);
                 props.setBooks(props.books.filter((b) => b.id !== book.id));

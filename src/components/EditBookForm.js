@@ -13,7 +13,7 @@ function EditBookForm(props) {
         };
         console.log(book);
         try{
-            const response = await fetch(`http://localhost:8080/books/${book.id}`, fetchOptions);
+            const response = await fetch(`/books/${book.id}`, fetchOptions);
             const body = await response.json();
             if(response.ok){
                 console.log(`editBook: saving changes... ${JSON.stringify(body)}`);

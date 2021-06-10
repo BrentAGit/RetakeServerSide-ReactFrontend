@@ -29,14 +29,22 @@ function App() {
             try{
                 console.log("Start of async getBooks...");
                 setIsLoading(true);
-                const response = await fetch("http://localhost:8080/books");
+                const fetchOptions = {
+                    method: 'GET',
+                    'credentials': 'include',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                };
+                const response = await fetch(`/books`, fetchOptions);
                 const body = await response.json();
                 console.log("Received response in getBooks...");
                 setBooks(body);
                 console.log("getBooks Done!");
             }
             catch(e){
-                console.log(`getBooks: ERROR: ${e}`)
+                console.log(`getBooks: ERROR: ${e}`);
                 setErrorMessage("Connection Error")
             }
             setIsLoading(false);
