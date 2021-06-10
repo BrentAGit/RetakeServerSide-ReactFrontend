@@ -40,15 +40,15 @@ function EditBookForm(props) {
             <b>Edit existing book</b>
             <div style={{paddingTop: "10px"}}>
                 Title of the book: <br/>
-                <input value={props.currentSelected.title} onChange={(e) => props.setCurrentSelected({...props.currentSelected, title: e.target.value})}/>
+                <input required value={props.currentSelected.title} onChange={(e) => props.setCurrentSelected({...props.currentSelected, title: e.target.value})}/>
             </div >
             <div style={{paddingTop: "10px"}}>
                 Author of the book: <br/>
-                <input value={props.currentSelected.author} onChange={(e) => props.setCurrentSelected({...props.currentSelected, author: e.target.value})}/>
+                <input required pattern={"[a-zA-Z][a-zA-Z]"} value={props.currentSelected.author} onChange={(e) => props.setCurrentSelected({...props.currentSelected, author: e.target.value})}/>
             </div >
             <div style={{paddingTop: "10px"}}>
                 Release year of the book: <br/>
-                <input value={props.currentSelected.releaseYear} onChange={(e) => props.setCurrentSelected({...props.currentSelected, releaseYear: e.target.value})}/>
+                <input min={0} max={2021} value={props.currentSelected.releaseYear} onChange={(e) => props.setCurrentSelected({...props.currentSelected, releaseYear: e.target.value})}/>
             </div>
             <div style={{paddingTop: "10px"}}>
                 <button onClick={() => {editBook(props.currentSelected) ; props.setIsEdit(!props.isEdit)}}>Save changes</button>

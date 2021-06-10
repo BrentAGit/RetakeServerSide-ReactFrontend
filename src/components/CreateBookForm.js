@@ -45,15 +45,15 @@ function CreateBookForm(props) {
             <b>Add a new book to the list</b>
             <div style={{paddingTop: "10px"}}>
                 Title of the book: <br/>
-                <input value={title} onChange={(e) => setTitle(e.target.value)}/>
+                <input required value={title} onChange={(e) => setTitle(e.target.value)}/>
             </div >
             <div style={{paddingTop: "10px"}}>
                 Author of the book: <br/>
-                <input value={author} onChange={(e) => setAuthor(e.target.value)}/>
+                <input required pattern={"[a-zA-Z][a-zA-Z]"} value={author} onChange={(e) => setAuthor(e.target.value)}/>
             </div >
             <div style={{paddingTop: "10px"}}>
                 Release year of the book: <br/>
-                <input value={releaseYear} onChange={(e) => setReleaseYear(e.target.value)}/>
+                <input min={0} max={2021} value={releaseYear} onChange={(e) => setReleaseYear(e.target.value)}/>
             </div>
             <div style={{paddingTop: "10px"}}>
                 <button onClick={() => createBook({'title': title, 'author': author, 'releaseYear': releaseYear})}>Create book!</button>
