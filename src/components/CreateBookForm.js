@@ -27,7 +27,7 @@ function CreateBookForm(props) {
             }
             else{
                 console.log(`createBook: ERROR: ${response.status} - ${body.error} - ${body.message}`);
-                const errorMessage = body.errors && body.errors.reduce((accumulator, error) => `${accumulator} ${error.defaultMessage} -=>`, "<=- ");
+                const errorMessage = body.errors && body.errors.reduce((accumulator, error) => `${accumulator} ${error.defaultMessage} -=-`, "-=- ");
                 console.log(`${JSON.stringify(body)}`);
                 console.log(`${errorMessage}`);
                 props.setErrorMessage(errorMessage || body.message);

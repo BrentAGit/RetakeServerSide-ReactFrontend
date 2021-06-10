@@ -22,7 +22,10 @@ function EditBookForm(props) {
             }
             else{
                 console.log(`editBook: ERROR: ${response.status} - ${body.error} - ${body.message}`);
-                props.setErrorMessage(body.message)
+                const errorMessage = body.errors && body.errors.reduce((accumulator, error) => `${accumulator} ${error.defaultMessage} -=-`, "-=- ");
+                console.log(`${JSON.stringify(body)}`);
+                console.log(`${errorMessage}`);
+                props.setErrorMessage(errorMessage || body.message);
             }
         }
         catch(e){
