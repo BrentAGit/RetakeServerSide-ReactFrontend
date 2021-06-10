@@ -1,9 +1,5 @@
 function EditBookForm(props) {
 
-    if (!props.currentSelected){
-        return null;
-    }
-
     async function editBook(book) {
 
         if (!props.currentSelected) return;
